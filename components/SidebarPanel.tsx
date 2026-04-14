@@ -104,6 +104,7 @@ export function SidebarPanel() {
   const connections = useGraphStore((state) => state.connections);
   const updatePerson = useGraphStore((state) => state.updatePerson);
   const updateSkill = useGraphStore((state) => state.updateSkill);
+  const deleteNode = useGraphStore((state) => state.deleteNode);
   const setSelectedNode = useGraphStore((state) => state.setSelectedNode);
 
   const selectedPerson =
@@ -153,6 +154,18 @@ export function SidebarPanel() {
     return null;
   }
 
+  const handleDeleteSelectedNode = () => {
+    const shouldDelete = window.confirm(
+      "Delete this node? Connected edges will also be removed."
+    );
+    if (!shouldDelete) {
+      return;
+    }
+
+    deleteNode(selectedNode.id, selectedNode.type);
+    setSelectedNode(null);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
       <aside className="w-full max-w-md rounded-xl border border-slate-700/60 bg-slate-900/80 p-5 shadow-[0_0_28px_rgba(99,102,241,0.2)] backdrop-blur-md transition-all duration-200">
@@ -173,6 +186,14 @@ export function SidebarPanel() {
             Close
           </button>
         </div>
+
+        <button
+          type="button"
+          onClick={handleDeleteSelectedNode}
+          className="mb-4 w-full rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-red-700"
+        >
+          Delete Selected Node
+        </button>
 
         {selectedPerson ? (
           <PersonEditor

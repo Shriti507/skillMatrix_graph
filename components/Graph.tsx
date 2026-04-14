@@ -5,7 +5,6 @@ import {
   Background,
   Controls,
   MarkerType,
-  MiniMap,
   ReactFlow,
   type NodeMouseHandler,
   type OnNodeDrag,
@@ -312,7 +311,6 @@ export function Graph({ searchQuery = "" }: GraphProps) {
         onEdgeMouseEnter={handleEdgeMouseEnter}
         onEdgeMouseLeave={handleEdgeMouseLeave}
       >
-        <MiniMap />
         <Controls />
         <Background gap={20} size={1.05} color="#334155" />
       </ReactFlow>
