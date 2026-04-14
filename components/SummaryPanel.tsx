@@ -42,76 +42,69 @@ export function SummaryPanel() {
 
   if (!isHydrated) {
     return (
-      <section className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-        <div className="h-40 animate-pulse rounded-xl bg-gray-100" />
+      <section className="rounded-xl bg-slate-900/45 p-1">
+        <div className="h-36 animate-pulse rounded-xl bg-slate-800/70" />
       </section>
     );
   }
 
   return (
-    <section className="space-y-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-200">
-      <h2 className="text-base font-semibold text-gray-900">Summary</h2>
-      <p className="text-sm text-gray-600">
+    <section className="space-y-6 rounded-xl bg-slate-900/45 p-1">
+      <p className="text-sm text-slate-300">
         Real-time overview computed from graph state.
       </p>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <article className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:scale-[1.01] hover:shadow-md">
-          <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+        <article className="rounded-lg bg-slate-800/55 p-3 shadow-[0_8px_22px_rgba(2,6,23,0.3)] transition">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
             Total People
           </p>
-          <p className="mt-2 text-2xl font-bold text-gray-900">{people.length}</p>
+          <p className="mt-2 text-2xl font-bold text-slate-100">{people.length}</p>
         </article>
-        <article className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:scale-[1.01] hover:shadow-md">
-          <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+        <article className="rounded-lg bg-slate-800/55 p-3 shadow-[0_8px_22px_rgba(2,6,23,0.3)] transition">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
             Total Skills
           </p>
-          <p className="mt-2 text-2xl font-bold text-gray-900">{skills.length}</p>
+          <p className="mt-2 text-2xl font-bold text-slate-100">{skills.length}</p>
         </article>
       </div>
 
-      <div className="grid gap-4">
-        <article className="rounded-xl border border-gray-200 p-4 shadow-sm transition hover:scale-[1.01] hover:shadow-md">
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+      <div className="grid gap-5">
+        <article className="space-y-2">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
             Most Common Skills
           </h3>
-          <ul className="mt-2 space-y-2">
+          <ul className="flex flex-wrap gap-2">
             {mostCommonSkills.map((skill) => (
               <li
                 key={skill.id}
-                className="flex items-center justify-between rounded-lg bg-indigo-50 px-3 py-2 text-sm transition-all duration-200 hover:bg-indigo-100"
+                className="rounded-md bg-slate-800/75 px-2 py-1 text-xs text-slate-200"
               >
-                <span className="font-medium text-gray-800">{skill.name}</span>
-                <span className="rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-700">
-                  {skill.count}
-                </span>
+                {skill.name} ({skill.count})
               </li>
             ))}
           </ul>
         </article>
 
-        <article className="rounded-xl border border-gray-200 p-4 shadow-sm transition hover:scale-[1.01] hover:shadow-md">
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+        <article className="space-y-2">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
             Skill Gaps
           </h3>
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="text-xs text-slate-400">
             Skills currently linked to exactly one person.
           </p>
-          <ul className="mt-2 space-y-2">
+          <ul className="flex flex-wrap gap-2">
             {skillGaps.length > 0 ? (
               skillGaps.map((skill) => (
                 <li
                   key={skill.id}
-                  className="flex items-center justify-between rounded-lg bg-white px-3 py-2 text-sm transition-all duration-200 hover:bg-gray-50"
+                  className="rounded-md bg-slate-800/75 px-2 py-1 text-xs text-slate-200"
                 >
-                  <span className="font-medium text-gray-800">{skill.name}</span>
-                  <span className="rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">
-                    {skill.count}
-                  </span>
+                  {skill.name}
                 </li>
               ))
             ) : (
-              <li className="rounded-lg bg-gray-50 px-3 py-2 text-sm text-gray-600">
+              <li className="rounded-md bg-slate-800/75 px-2 py-1 text-xs text-slate-300">
                 No current skill gaps.
               </li>
             )}

@@ -145,163 +145,149 @@ export function GraphControls() {
   };
 
   return (
-    <section className="space-y-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-200">
-      <h2 className="text-base font-semibold text-gray-900">Graph Controls</h2>
-      <p className="text-sm text-gray-600">
+    <section className="space-y-6 rounded-xl bg-slate-900/45 p-1">
+      <p className="text-sm text-slate-300">
         Add and remove nodes/connections. Changes update the graph instantly.
       </p>
 
-      <div className="grid gap-3">
-        <form
-          onSubmit={onAddPerson}
-          className="space-y-2 rounded-xl border border-gray-200 p-4 shadow-sm transition-all duration-200 hover:scale-[1.01] hover:shadow-md"
-        >
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-            Add Person
-          </h3>
-          <input
-            value={personName}
-            onChange={(event) => setPersonName(event.target.value)}
-            placeholder="Name"
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
-          />
-          <input
-            value={personRole}
-            onChange={(event) => setPersonRole(event.target.value)}
-            placeholder="Role"
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
-          />
-          <button className="w-full rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-indigo-700">
-            Add Person
-          </button>
-        </form>
+      <form onSubmit={onAddPerson} className="space-y-3">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+          Add Person
+        </h3>
+        <input
+          value={personName}
+          onChange={(event) => setPersonName(event.target.value)}
+          placeholder="Name"
+          className="w-full rounded-lg border border-slate-700/45 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
+        />
+        <input
+          value={personRole}
+          onChange={(event) => setPersonRole(event.target.value)}
+          placeholder="Role"
+          className="w-full rounded-lg border border-slate-700/45 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
+        />
+        <button className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md">
+          Add Person
+        </button>
+      </form>
 
-        <form
-          onSubmit={onAddSkill}
-          className="space-y-2 rounded-xl border border-gray-200 p-4 shadow-sm transition-all duration-200 hover:scale-[1.01] hover:shadow-md"
-        >
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-            Add Skill
-          </h3>
-          <input
-            value={skillName}
-            onChange={(event) => setSkillName(event.target.value)}
-            placeholder="Skill name"
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
-          />
-          <input
-            value={skillCategory}
-            onChange={(event) => setSkillCategory(event.target.value)}
-            placeholder="Category"
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
-          />
-          <button className="w-full rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-indigo-700">
-            Add Skill
-          </button>
-        </form>
+      <form onSubmit={onAddSkill} className="space-y-3">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+          Add Skill
+        </h3>
+        <input
+          value={skillName}
+          onChange={(event) => setSkillName(event.target.value)}
+          placeholder="Skill name"
+          className="w-full rounded-lg border border-slate-700/45 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
+        />
+        <input
+          value={skillCategory}
+          onChange={(event) => setSkillCategory(event.target.value)}
+          placeholder="Category"
+          className="w-full rounded-lg border border-slate-700/45 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
+        />
+        <button className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md">
+          Add Skill
+        </button>
+      </form>
 
-        <form
-          onSubmit={onAddConnection}
-          className="space-y-2 rounded-xl border border-gray-200 p-4 shadow-sm transition-all duration-200 hover:scale-[1.01] hover:shadow-md"
+      <form onSubmit={onAddConnection} className="space-y-3">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+          Add Connection
+        </h3>
+        <select
+          value={connectionPersonId}
+          onChange={(event) => setConnectionPersonId(event.target.value)}
+          className="w-full rounded-lg border border-slate-700/45 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
         >
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-            Add Connection
-          </h3>
-          <select
-            value={connectionPersonId}
-            onChange={(event) => setConnectionPersonId(event.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
-          >
-            <option value="">Select person</option>
-            {people.map((person) => (
-              <option key={person.id} value={person.id}>
-                {person.name}
-              </option>
-            ))}
-          </select>
-          <select
-            value={connectionSkillId}
-            onChange={(event) => setConnectionSkillId(event.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
-          >
-            <option value="">Select skill</option>
-            {skills.map((skill) => (
-              <option key={skill.id} value={skill.id}>
-                {skill.name}
-              </option>
-            ))}
-          </select>
-          <select
-            value={connectionProficiency}
-            onChange={(event) =>
-              setConnectionProficiency(event.target.value as Proficiency)
-            }
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
-          >
-            {proficiencyOptions.map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
-          <button
-            type="submit"
-            disabled={!canAddConnection}
-            className="w-full rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-gray-300"
-          >
-            Add Connection
-          </button>
-          {isDuplicateConnection ? (
-            <p className="text-xs text-red-600">
-              This connection already exists for the selected person and skill.
-            </p>
-          ) : null}
-        </form>
+          <option value="">Select person</option>
+          {people.map((person) => (
+            <option key={person.id} value={person.id}>
+              {person.name}
+            </option>
+          ))}
+        </select>
+        <select
+          value={connectionSkillId}
+          onChange={(event) => setConnectionSkillId(event.target.value)}
+          className="w-full rounded-lg border border-slate-700/45 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
+        >
+          <option value="">Select skill</option>
+          {skills.map((skill) => (
+            <option key={skill.id} value={skill.id}>
+              {skill.name}
+            </option>
+          ))}
+        </select>
+        <select
+          value={connectionProficiency}
+          onChange={(event) =>
+            setConnectionProficiency(event.target.value as Proficiency)
+          }
+          className="w-full rounded-lg border border-slate-700/45 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
+        >
+          {proficiencyOptions.map((level) => (
+            <option key={level} value={level}>
+              {level}
+            </option>
+          ))}
+        </select>
+        <button
+          type="submit"
+          disabled={!canAddConnection}
+          className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md disabled:cursor-not-allowed disabled:from-slate-500 disabled:to-slate-500"
+        >
+          Add Connection
+        </button>
+        {isDuplicateConnection ? (
+          <p className="text-xs text-red-400">
+            This connection already exists for the selected person and skill.
+          </p>
+        ) : null}
+      </form>
+
+      <div className="space-y-3">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+          Delete Node
+        </h3>
+        <p className="text-xs text-slate-400">
+          Select a node in the graph, then delete it (connected edges are removed).
+        </p>
+        <button
+          type="button"
+          disabled={!selectedNode}
+          onClick={onDeleteSelectedNode}
+          className="w-full rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-slate-500"
+        >
+          Delete Selected Node
+        </button>
       </div>
 
-      <div className="grid gap-3">
-        <div className="rounded-xl border border-gray-200 p-4 shadow-sm transition-all duration-200 hover:scale-[1.01] hover:shadow-md">
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-            Delete Node
-          </h3>
-          <p className="mt-1 text-xs text-gray-500">
-            Select a node in the graph, then delete it (connected edges are removed).
-          </p>
-          <button
-            type="button"
-            disabled={!selectedNode}
-            onClick={onDeleteSelectedNode}
-            className="mt-3 w-full rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-gray-300"
-          >
-            Delete Selected Node
-          </button>
-        </div>
-
-        <div className="rounded-xl border border-gray-200 p-4 shadow-sm transition-all duration-200 hover:scale-[1.01] hover:shadow-md">
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-            Delete Connection
-          </h3>
-          <select
-            value={selectedConnectionId}
-            onChange={(event) => setSelectedConnectionId(event.target.value)}
-            className="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
-          >
-            <option value="">Select connection</option>
-            {connectionOptions.map((connection) => (
-              <option key={connection.id} value={connection.id}>
-                {connection.label}
-              </option>
-            ))}
-          </select>
-          <button
-            type="button"
-            disabled={!selectedConnectionId}
-            onClick={onDeleteConnection}
-            className="mt-3 w-full rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-gray-300"
-          >
-            Delete Connection
-          </button>
-        </div>
+      <div className="space-y-3">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+          Delete Connection
+        </h3>
+        <select
+          value={selectedConnectionId}
+          onChange={(event) => setSelectedConnectionId(event.target.value)}
+          className="w-full rounded-lg border border-slate-700/45 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
+        >
+          <option value="">Select connection</option>
+          {connectionOptions.map((connection) => (
+            <option key={connection.id} value={connection.id}>
+              {connection.label}
+            </option>
+          ))}
+        </select>
+        <button
+          type="button"
+          disabled={!selectedConnectionId}
+          onClick={onDeleteConnection}
+          className="w-full rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-slate-500"
+        >
+          Delete Connection
+        </button>
       </div>
     </section>
   );

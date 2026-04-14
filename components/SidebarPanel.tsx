@@ -16,31 +16,31 @@ function PersonEditor({ initialName, initialRole, onSave }: PersonEditorProps) {
   return (
     <div className="space-y-3">
       <label className="block">
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-gray-500">
+        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">
           Name
         </span>
         <input
           value={name}
           onChange={(event) => setName(event.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
+          className="w-full rounded-lg border border-slate-700 bg-slate-800/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
         />
       </label>
 
       <label className="block">
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-gray-500">
+        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">
           Role
         </span>
         <input
           value={role}
           onChange={(event) => setRole(event.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
+          className="w-full rounded-lg border border-slate-700 bg-slate-800/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
         />
       </label>
 
       <button
         type="button"
         onClick={() => onSave(name.trim(), role.trim() || undefined)}
-        className="w-full rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-indigo-700"
+        className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md"
       >
         Save changes
       </button>
@@ -65,31 +65,31 @@ function SkillEditor({
   return (
     <div className="space-y-3">
       <label className="block">
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-gray-500">
+        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">
           Name
         </span>
         <input
           value={name}
           onChange={(event) => setName(event.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
+          className="w-full rounded-lg border border-slate-700 bg-slate-800/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
         />
       </label>
 
       <label className="block">
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-gray-500">
+        <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">
           Category
         </span>
         <input
           value={category}
           onChange={(event) => setCategory(event.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-500"
+          className="w-full rounded-lg border border-slate-700 bg-slate-800/80 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
         />
       </label>
 
       <button
         type="button"
         onClick={() => onSave(name.trim(), category.trim() || undefined)}
-        className="w-full rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white transition hover:scale-[1.02] hover:bg-indigo-700"
+        className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md"
       >
         Save changes
       </button>
@@ -154,21 +154,21 @@ export function SidebarPanel() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
-      <aside className="w-full max-w-md rounded-xl bg-white p-5 shadow-lg transition-all duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
+      <aside className="w-full max-w-md rounded-xl border border-slate-700/60 bg-slate-900/80 p-5 shadow-[0_0_28px_rgba(99,102,241,0.2)] backdrop-blur-md transition-all duration-200">
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
               {selectedNode.type === "person" ? "Person" : "Skill"} Details
             </p>
-            <h2 className="mt-1 text-lg font-semibold text-gray-900">
+            <h2 className="mt-1 text-lg font-semibold text-slate-100">
               {selectedNode.type === "person" ? "Edit Person" : "Edit Skill"}
             </h2>
           </div>
           <button
             type="button"
             onClick={() => setSelectedNode(null)}
-            className="rounded-lg border border-gray-200 px-2 py-1 text-xs text-gray-600 transition hover:bg-gray-50"
+            className="rounded-lg border border-slate-700 px-2 py-1 text-xs text-slate-300 transition hover:bg-slate-800"
           >
             Close
           </button>
@@ -201,7 +201,7 @@ export function SidebarPanel() {
         ) : null}
 
         <div className="mt-6">
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
             {selectedNode.type === "person" ? "Skills" : "People"}
           </h3>
           <ul className="mt-2 space-y-2">
@@ -209,10 +209,10 @@ export function SidebarPanel() {
               (row) => (
                 <li
                   key={row.id}
-                  className="flex items-center justify-between rounded-lg border border-gray-200 px-3 py-2 text-sm transition hover:bg-gray-50"
+                  className="flex items-center justify-between rounded-lg border border-slate-700 px-3 py-2 text-sm transition hover:bg-slate-800/80"
                 >
-                  <span className="font-medium text-gray-800">{row.name}</span>
-                  <span className="rounded bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">
+                  <span className="font-medium text-slate-100">{row.name}</span>
+                  <span className="rounded bg-indigo-500/20 px-2 py-0.5 text-xs text-indigo-200">
                     {row.proficiency}
                   </span>
                 </li>
