@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Team Skill Matrix Graph
+
+Next.js + TypeScript + Zustand + React Flow app for managing people, skills, and proficiency relationships.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Automated Verification
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run all automated checks:
 
-## Learn More
+```bash
+npm run verify
+```
 
-To learn more about Next.js, take a look at the following resources:
+This runs:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- ESLint (`npm run lint`)
+- Vitest smoke checks (`npm run test`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Manual Smoke Checklist
 
-## Deploy on Vercel
+Use this before submission/review:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [ ] Create a person with name and optional role.
+- [ ] Create a skill with name and optional category.
+- [ ] Create a connection between person and skill with a proficiency.
+- [ ] Click a person node and verify details panel shows related skills + proficiency.
+- [ ] Click a skill node and verify details panel shows related people + proficiency.
+- [ ] Edit person name/role and confirm graph label updates.
+- [ ] Edit skill name/category and confirm graph label updates.
+- [ ] Delete a node and confirm related edges are removed.
+- [ ] Delete a connection and confirm only that link is removed.
+- [ ] Refresh page and verify all changes persist from localStorage.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## UX Notes
+
+- Proficiency meanings:
+  - Learning = beginner
+  - Familiar = working knowledge
+  - Expert = strong expertise
+- A connection is a link between one person and one skill.
+
+## NPM Warning (`devdir`)
+
+If you see `Unknown env config "devdir"`, it is coming from your shell environment (not project files).
+
+You can clear it in your current shell:
+
+```bash
+unset npm_config_devdir
+```
+
+To remove permanently, delete that export from your shell config (`~/.zshrc`, `~/.zprofile`, or equivalent), then restart your terminal.

@@ -50,10 +50,6 @@ export function SummaryPanel() {
 
   return (
     <section className="space-y-6 rounded-xl bg-slate-900/45 p-1">
-      <p className="text-sm text-slate-300">
-        Real-time overview computed from graph state.
-      </p>
-
       <div className="grid gap-3 sm:grid-cols-2">
         <article className="rounded-lg bg-slate-800/55 p-3 shadow-[0_8px_22px_rgba(2,6,23,0.3)] transition">
           <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
@@ -90,9 +86,6 @@ export function SummaryPanel() {
           <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
             Skill Gaps
           </h3>
-          <p className="text-xs text-slate-400">
-            Skills currently linked to exactly one person.
-          </p>
           <ul className="flex flex-wrap gap-2">
             {skillGaps.length > 0 ? (
               skillGaps.map((skill) => (

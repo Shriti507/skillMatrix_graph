@@ -39,7 +39,6 @@ export default function Home() {
               Dashboard
             </p>
             <h1 className="text-xl font-semibold text-slate-100">Team Skill Matrix</h1>
-            <p className="text-sm text-slate-300">Overview, controls, and graph management.</p>
           </section>
 
           <div className="space-y-3">

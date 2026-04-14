@@ -6,6 +6,7 @@ import type { Proficiency } from "@/lib/seed";
 import { useGraphStore } from "@/store/useGraphStore";
 
 const proficiencyOptions: Proficiency[] = ["learning", "familiar", "expert"];
+const NODE_DELETE_ANIMATION_MS = 150;
 
 function getNextId(prefix: string, ids: string[]): string {
   const maxNumber = ids.reduce((max, id) => {
@@ -140,24 +141,33 @@ export function GraphControls() {
 
   const onDeleteSelectedNode = () => {
     if (!selectedNode) return;
+    if (!window.confirm("Are you sure you want to delete this node?")) {
+      return;
+    }
+
+    const deletingToast = toast.loading("Deleting node...");
     deleteNode(selectedNode.id, selectedNode.type);
     setSelectedNode(null);
-    toast.success("Node deleted successfully");
+
+    window.setTimeout(() => {
+      toast.success("Node deleted successfully", { id: deletingToast });
+    }, NODE_DELETE_ANIMATION_MS + 20);
   };
 
   const onDeleteConnection = () => {
     if (!selectedConnectionId) return;
+    if (!window.confirm("Are you sure you want to delete this connection?")) {
+      return;
+    }
+
+    const deletingToast = toast.loading("Deleting connection...");
     deleteConnection(selectedConnectionId);
     setSelectedConnectionId("");
-    toast.success("Connection deleted successfully");
+    toast.success("Connection deleted successfully", { id: deletingToast });
   };
 
   return (
     <section className="space-y-6 rounded-xl bg-slate-900/45 p-1">
-      <p className="text-sm text-slate-300">
-        Add and remove nodes/connections. Changes update the graph instantly.
-      </p>
-
       <form onSubmit={onAddPerson} className="space-y-3">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
           Add Person
@@ -265,9 +275,6 @@ export function GraphControls() {
         <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
           Delete Node
         </h3>
-        <p className="text-xs text-slate-400">
-          Select a node in the graph, then delete it (connected edges are removed).
-        </p>
         <button
           type="button"
           disabled={!selectedNode}
@@ -287,7 +294,9 @@ export function GraphControls() {
           onChange={(event) => setSelectedConnectionId(event.target.value)}
           className="w-full rounded-lg border border-slate-700/45 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
         >
-          <option value="">Select connection</option>
+          <option value="">
+            {connectionOptions.length > 0 ? "Select connection" : "No connections yet"}
+          </option>
           {connectionOptions.map((connection) => (
             <option key={connection.id} value={connection.id}>
               {connection.label}

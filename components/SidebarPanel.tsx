@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { useGraphStore } from "@/store/useGraphStore";
 
+const NODE_DELETE_ANIMATION_MS = 150;
+
 type PersonEditorProps = {
   initialName: string;
   initialRole?: string;
@@ -167,9 +169,12 @@ export function SidebarPanel() {
       return;
     }
 
+    const deletingToast = toast.loading("Deleting node...");
     deleteNode(selectedNode.id, selectedNode.type);
     setSelectedNode(null);
-    toast.success("Node deleted successfully");
+    window.setTimeout(() => {
+      toast.success("Node deleted successfully", { id: deletingToast });
+    }, NODE_DELETE_ANIMATION_MS + 20);
   };
 
   return (
