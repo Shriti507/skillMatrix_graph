@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
+import { Toaster } from "sonner";
 import { Graph } from "@/components/Graph";
 import { GraphControls } from "@/components/GraphControls";
 import { SidebarPanel } from "@/components/SidebarPanel";
 import { SummaryPanel } from "@/components/SummaryPanel";
+import { useGraphStore } from "@/store/useGraphStore";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const selectedNode = useGraphStore((state) => state.selectedNode);
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -62,6 +65,11 @@ export default function Home() {
               placeholder="Search people or skills"
               className="w-full rounded-lg border border-slate-700/40 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500"
             />
+            {!selectedNode ? (
+              <p className="mt-2 text-xs text-slate-400">
+                Select a node to view details.
+              </p>
+            ) : null}
           </div>
           <div className="flex min-h-0 flex-1 items-center justify-center p-2 transition-all duration-200">
             <Graph searchQuery={searchQuery} />
@@ -69,6 +77,19 @@ export default function Home() {
         </section>
       </div>
       <SidebarPanel />
+      <Toaster
+        position="top-right"
+        richColors
+        closeButton
+        theme="dark"
+        toastOptions={{
+          style: {
+            background: "rgba(15,23,42,0.92)",
+            border: "1px solid rgba(100,116,139,0.35)",
+            color: "#e2e8f0",
+          },
+        }}
+      />
     </main>
   );
 }

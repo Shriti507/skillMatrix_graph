@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { toast } from "sonner";
 import type { Proficiency } from "@/lib/seed";
 import { useGraphStore } from "@/store/useGraphStore";
 
@@ -59,6 +60,8 @@ export function GraphControls() {
 
   const canAddConnection =
     Boolean(connectionPersonId) && Boolean(connectionSkillId) && !isDuplicateConnection;
+  const canAddPerson = personName.trim().length > 0;
+  const canAddSkill = skillName.trim().length > 0;
 
   const connectionOptions = useMemo(() => {
     return connections.map((connection) => {
@@ -89,6 +92,7 @@ export function GraphControls() {
 
     setPersonName("");
     setPersonRole("");
+    toast.success("Person added successfully");
   };
 
   const onAddSkill = (event: FormEvent<HTMLFormElement>) => {
@@ -107,13 +111,14 @@ export function GraphControls() {
 
     setSkillName("");
     setSkillCategory("");
+    toast.success("Skill added successfully");
   };
 
   const onAddConnection = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!connectionPersonId || !connectionSkillId) return;
     if (isDuplicateConnection) {
-      window.alert("This person-skill connection already exists.");
+      toast.error("This person-skill connection already exists.");
       return;
     }
 
@@ -130,18 +135,21 @@ export function GraphControls() {
     setConnectionPersonId("");
     setConnectionSkillId("");
     setConnectionProficiency("learning");
+    toast.success("Connection added successfully");
   };
 
   const onDeleteSelectedNode = () => {
     if (!selectedNode) return;
     deleteNode(selectedNode.id, selectedNode.type);
     setSelectedNode(null);
+    toast.success("Node deleted successfully");
   };
 
   const onDeleteConnection = () => {
     if (!selectedConnectionId) return;
     deleteConnection(selectedConnectionId);
     setSelectedConnectionId("");
+    toast.success("Connection deleted successfully");
   };
 
   return (
@@ -166,7 +174,10 @@ export function GraphControls() {
           placeholder="Role"
           className="w-full rounded-lg border border-slate-700/45 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
         />
-        <button className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md">
+        <button
+          disabled={!canAddPerson}
+          className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md disabled:cursor-not-allowed disabled:from-slate-500 disabled:to-slate-500"
+        >
           Add Person
         </button>
       </form>
@@ -187,7 +198,10 @@ export function GraphControls() {
           placeholder="Category"
           className="w-full rounded-lg border border-slate-700/45 bg-slate-800/60 px-3 py-2 text-sm text-slate-100 outline-none transition focus:ring-2 focus:ring-indigo-500"
         />
-        <button className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md">
+        <button
+          disabled={!canAddSkill}
+          className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md disabled:cursor-not-allowed disabled:from-slate-500 disabled:to-slate-500"
+        >
           Add Skill
         </button>
       </form>

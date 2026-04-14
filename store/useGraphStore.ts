@@ -49,12 +49,16 @@ const omitKey = <T extends Record<string, unknown>>(obj: T, key: string) => {
   return next;
 };
 
+const emptyGraphData: GraphData = {
+  people: [],
+  skills: [],
+  connections: [],
+};
+
 export const useGraphStore = create<GraphState>()(
   persist(
     (set, get) => ({
-      people: seedPeople,
-      skills: seedSkills,
-      connections: seedConnections,
+      ...emptyGraphData,
       nodePositions: {},
       removingNodeIds: {},
       selectedNode: null,
@@ -162,6 +166,28 @@ export const useGraphStore = create<GraphState>()(
       storage: createJSONStorage(() =>
         typeof window === "undefined" ? noopStorage : localStorage
       ),
+      merge: (persistedState, currentState) => {
+        const typedPersisted =
+          (persistedState as Partial<GraphState> | undefined) ?? undefined;
+
+        // Load seed data only when there is no persisted state in storage.
+        const hasPersistedState = typeof typedPersisted !== "undefined";
+        const baseState = hasPersistedState
+          ? currentState
+          : {
+              ...currentState,
+              people: seedPeople,
+              skills: seedSkills,
+              connections: seedConnections,
+            };
+
+        return {
+          ...baseState,
+          ...typedPersisted,
+          removingNodeIds: {},
+          selectedNode: null,
+        };
+      },
     }
   )
 );

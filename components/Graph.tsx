@@ -298,6 +298,16 @@ export function Graph({ searchQuery = "" }: GraphProps) {
     );
   }
 
+  if (people.length === 0 && skills.length === 0) {
+    return (
+      <div className="flex h-full min-h-0 w-full items-center justify-center rounded-2xl border border-slate-700/70 bg-slate-900/65 p-6 shadow-[0_0_30px_rgba(59,130,246,0.15)] backdrop-blur-md">
+        <p className="text-sm text-slate-300">
+          Start by adding a person or skill to build your team matrix.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="h-full min-h-0 w-full rounded-2xl border border-slate-700/70 bg-slate-900/65 p-4 shadow-[0_0_30px_rgba(59,130,246,0.15)] backdrop-blur-md transition-all duration-200">
       <ReactFlow

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { toast } from "sonner";
 import { useGraphStore } from "@/store/useGraphStore";
 
 type PersonEditorProps = {
@@ -12,6 +13,7 @@ type PersonEditorProps = {
 function PersonEditor({ initialName, initialRole, onSave }: PersonEditorProps) {
   const [name, setName] = useState(initialName);
   const [role, setRole] = useState(initialRole ?? "");
+  const canSave = name.trim().length > 0;
 
   return (
     <div className="space-y-3">
@@ -39,8 +41,9 @@ function PersonEditor({ initialName, initialRole, onSave }: PersonEditorProps) {
 
       <button
         type="button"
+        disabled={!canSave}
         onClick={() => onSave(name.trim(), role.trim() || undefined)}
-        className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md"
+        className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md disabled:cursor-not-allowed disabled:from-slate-500 disabled:to-slate-500"
       >
         Save changes
       </button>
@@ -61,6 +64,7 @@ function SkillEditor({
 }: SkillEditorProps) {
   const [name, setName] = useState(initialName);
   const [category, setCategory] = useState(initialCategory ?? "");
+  const canSave = name.trim().length > 0;
 
   return (
     <div className="space-y-3">
@@ -88,8 +92,9 @@ function SkillEditor({
 
       <button
         type="button"
+        disabled={!canSave}
         onClick={() => onSave(name.trim(), category.trim() || undefined)}
-        className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md"
+        className="w-full rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md disabled:cursor-not-allowed disabled:from-slate-500 disabled:to-slate-500"
       >
         Save changes
       </button>
@@ -164,6 +169,7 @@ export function SidebarPanel() {
 
     deleteNode(selectedNode.id, selectedNode.type);
     setSelectedNode(null);
+    toast.success("Node deleted successfully");
   };
 
   return (
@@ -201,10 +207,13 @@ export function SidebarPanel() {
             initialName={selectedPerson.name}
             initialRole={selectedPerson.role}
             onSave={(name, role) =>
-              updatePerson(selectedPerson.id, {
-                name: name || selectedPerson.name,
-                role,
-              })
+              (() => {
+                updatePerson(selectedPerson.id, {
+                  name: name || selectedPerson.name,
+                  role,
+                });
+                toast.success("Person updated successfully");
+              })()
             }
           />
         ) : selectedSkill ? (
@@ -213,10 +222,13 @@ export function SidebarPanel() {
             initialName={selectedSkill.name}
             initialCategory={selectedSkill.category}
             onSave={(name, category) =>
-              updateSkill(selectedSkill.id, {
-                name: name || selectedSkill.name,
-                category,
-              })
+              (() => {
+                updateSkill(selectedSkill.id, {
+                  name: name || selectedSkill.name,
+                  category,
+                });
+                toast.success("Skill updated successfully");
+              })()
             }
           />
         ) : null}
@@ -226,18 +238,27 @@ export function SidebarPanel() {
             {selectedNode.type === "person" ? "Skills" : "People"}
           </h3>
           <ul className="mt-2 space-y-2">
-            {(selectedNode.type === "person" ? personSkillRows : skillPeopleRows).map(
-              (row) => (
-                <li
-                  key={row.id}
-                  className="flex items-center justify-between rounded-lg border border-slate-700 px-3 py-2 text-sm transition hover:bg-slate-800/80"
-                >
-                  <span className="font-medium text-slate-100">{row.name}</span>
-                  <span className="rounded bg-indigo-500/20 px-2 py-0.5 text-xs text-indigo-200">
-                    {row.proficiency}
-                  </span>
-                </li>
+            {(selectedNode.type === "person" ? personSkillRows : skillPeopleRows).length >
+            0 ? (
+              (selectedNode.type === "person" ? personSkillRows : skillPeopleRows).map(
+                (row) => (
+                  <li
+                    key={row.id}
+                    className="flex items-center justify-between rounded-lg border border-slate-700 px-3 py-2 text-sm transition hover:bg-slate-800/80"
+                  >
+                    <span className="font-medium text-slate-100">{row.name}</span>
+                    <span className="rounded bg-indigo-500/20 px-2 py-0.5 text-xs text-indigo-200">
+                      {row.proficiency}
+                    </span>
+                  </li>
+                )
               )
+            ) : (
+              <li className="rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-300">
+                {selectedNode.type === "person"
+                  ? "No skills connected yet."
+                  : "No people connected yet."}
+              </li>
             )}
           </ul>
         </div>
